@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
+const { createToken } = require('../utils/generateToken.js');
 
 const signUpUser = async (req, res) => {
     try {
@@ -9,8 +10,8 @@ const signUpUser = async (req, res) => {
         }
 
         // Password validation
-        if (password.length > 6) {
-            return res.status(400).json({ message: "password must be atleast 6 character" });
+        if (password.length < 6) {
+            return res.status(400).json({ message: "password must be at least 6 characters" });
         }
 
         // Email validation
@@ -33,16 +34,21 @@ const signUpUser = async (req, res) => {
             password: hashedPassword
         });
 
-        await newUser.save();
-        res.status(201).json({ message: "User registered successfully", user: newUser });
+        if(newUser){
+             const savedUser = await newUser.save();
+            createToken(savedUser._id, res);
+            res.status(201).json({ message: "User registered successfully", user: savedUser });
+        }
+
 
     } catch (error) {
+        console.log("Error is in signUpUser:", error);
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
 
 const loginUser = (req, res) => {
-    res.send('login');
+    
 }
 
 const logoutUser = (req, res) => {
