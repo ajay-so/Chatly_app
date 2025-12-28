@@ -1,7 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const AuthRoutes = require('./routes/auth.route.js');
-// import MessageRoutes from './routes/message.route.js';
+const connectDB = require('./utils/db.js');
+// const MessageRoutes = require('./routes/message.route.js');
 
 dotenv.config();
 
@@ -17,4 +18,5 @@ app.use('/api/auth', AuthRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    connectDB();
 });
