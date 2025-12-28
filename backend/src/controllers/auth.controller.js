@@ -1,4 +1,7 @@
-const registerUser = (req, res) => {
+const bcrypt = require('bcrypt');
+const User = require('../models/User.js');
+
+const signUpUser = async (req, res) => {
     res.send('register');
 };
 
@@ -10,4 +13,4 @@ const logoutUser = (req, res) => {
     res.send('logout');
 }
 
-export { registerUser, loginUser, logoutUser };
+module.exports = { signUpUser, loginUser, logoutUser };
