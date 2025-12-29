@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
 const { createToken } = require('../utils/generateToken.js');
 const { sendWelcomeEmail } = require('../emails/emailHandler.js');
-require('dotenv').config();
+const ENV = require("../utils/env.js")
 
 const signUpUser = async (req, res) => {
     try {
@@ -44,7 +44,7 @@ const signUpUser = async (req, res) => {
 
         // Send welcome email
         try{
-            await sendWelcomeEmail(newUser.fullname, newUser.email, process.env.FRONTEND_URL);
+            await sendWelcomeEmail(newUser.fullname, newUser.email, ENV.FRONTEND_URL);
         } catch (error) {
             console.log("Error sending welcome email:", error);
         }
