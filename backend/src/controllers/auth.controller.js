@@ -1,11 +1,13 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
 const { createToken } = require('../utils/generateToken.js');
+const { sendWelcomeEmail } = require('../emails/emailHandler.js');
+const ENV = require("../utils/env.js")
 
 const signUpUser = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        if (!username || !email || !password) {
+        const { fullname, email, password } = req.body;
+        if (!fullname || !email || !password) {
             return res.status(400).json({ message: "All fields must be required" });
         }
 
@@ -29,17 +31,23 @@ const signUpUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({
-            username,
+            fullname,
             email,
             password: hashedPassword
         });
 
-        if(newUser){
-             const savedUser = await newUser.save();
+        if (newUser) {
+            const savedUser = await newUser.save();
             createToken(savedUser._id, res);
             res.status(201).json({ message: "User registered successfully", user: savedUser });
         }
 
+        // Send welcome email
+        try{
+            await sendWelcomeEmail(newUser.fullname, newUser.email, ENV.FRONTEND_URL);
+        } catch (error) {
+            console.log("Error sending welcome email:", error);
+        }
 
     } catch (error) {
         console.log("Error is in signUpUser:", error);
@@ -48,7 +56,7 @@ const signUpUser = async (req, res) => {
 };
 
 const loginUser = (req, res) => {
-    
+
 }
 
 const logoutUser = (req, res) => {

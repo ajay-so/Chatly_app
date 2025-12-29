@@ -1,0 +1,19 @@
+const { resendClient, sender } = require('../utils/resend');
+const { welcomeEmailTemplate } = require('./emailTemplates.js');
+
+// Function to send welcome email
+const sendWelcomeEmail = async (name, email, clientURL) => {
+    const { data , error} = await resendClient.emails.send({
+        from: `${sender.name} <${sender.email}>`,
+        to: email,
+        subject: 'Welcome to Chatly!',
+        html: welcomeEmailTemplate(name, email, clientURL)
+    });
+    if(error){
+        console.error('Error sending welcome email:', error);
+        throw new Error('Failed to send welcome email');
+    }
+    console.log('Welcome email sent successfully:', data);
+}
+
+module.exports = { sendWelcomeEmail };
