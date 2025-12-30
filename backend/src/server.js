@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const AuthRoutes = require('./routes/auth.route.js');
 const connectDB = require('./utils/db.js');
 const cookieParser = require('cookie-parser');
+const rateLimit = require('./middlewares/rateLimit.middleware.js');
 // const MessageRoutes = require('./routes/message.route.js');
 
 dotenv.config();
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(rateLimit);
 
 
 app.use('/api/auth', AuthRoutes);

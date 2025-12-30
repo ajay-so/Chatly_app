@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const { tokenVerify } = require('../middlewares/auth.middleware.js');
-
 const { signUpUser, loginUser, logoutUser, uploadProfilePic } = require('../controllers/auth.controller.js');
 
 router.post('/signup', signUpUser);
