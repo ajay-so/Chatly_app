@@ -4,7 +4,7 @@ const AuthRoutes = require('./routes/auth.route.js');
 const connectDB = require('./utils/db.js');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('./middlewares/rateLimit.middleware.js');
-// const MessageRoutes = require('./routes/message.route.js');
+const MessageRoutes = require('./routes/message.route.js');
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ app.use(rateLimit);
 
 
 app.use('/api/auth', AuthRoutes);
-// app.use('/api/messages', MessageRoutes);
+app.use('/api/messages', MessageRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
