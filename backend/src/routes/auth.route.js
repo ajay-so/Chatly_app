@@ -5,6 +5,6 @@ const { signUpUser, loginUser, logoutUser } = require('../controllers/auth.contr
 
 router.post('/signup', signUpUser);
 router.post('/login', loginUser);
-router.get('/logout', logoutUser);
+router.post('/logout', logoutUser);
 
 module.exports = router;

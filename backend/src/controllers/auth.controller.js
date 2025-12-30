@@ -43,7 +43,7 @@ const signUpUser = async (req, res) => {
         }
 
         // Send welcome email
-        try{
+        try {
             await sendWelcomeEmail(newUser.fullname, newUser.email, ENV.FRONTEND_URL);
         } catch (error) {
             console.log("Error sending welcome email:", error);
@@ -55,12 +55,43 @@ const signUpUser = async (req, res) => {
     }
 };
 
-const loginUser = (req, res) => {
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
 
-}
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ message: "Invalid email format" });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+
+        createToken(user._id, res);
+
+        res.status(200).json({ message: "User logged in successfully", user });
+
+    } catch (error) {
+        console.log("Error is in loginUser:", error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
 
 const logoutUser = (req, res) => {
-    res.send('logout');
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "User logged out successfully" });
 }
 
 module.exports = { signUpUser, loginUser, logoutUser };
