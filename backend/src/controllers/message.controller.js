@@ -58,8 +58,37 @@ const sendMessage = async (req, res) => {
     }
 }
 
+const getAllChatPartners = async (req, res) => {
+    try {
+        const loggedInUserId = req.user._id;
+        //find all the messages where the user is either sender or receiver
+        const messages = await Message.find({
+            $or: [
+                { senderId: loggedInUserId },
+                { receiverId: loggedInUserId }
+            ]
+        });
+
+        const chatPartnerIds = [
+            ...new Set(messages.map(msg => (
+                msg.senderId.toString() === loggedInUserId.toString() ? msg.receiverId.toString() : msg.senderId.toString()
+            )))
+        ];
+
+        const chatPartners = await User.find({ _id: { $in: chatPartnerIds } }).select('-password');
+
+        res.status(200).json({ message: "Chat partners fetched successfully", data: chatPartners });
+    } catch (error) {
+        console.log("error in getAllChatPartners:", error);
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+}
+
+
+
 module.exports = {
     getALLContacts,
     getMessagesByUserId,
-    sendMessage
+    sendMessage,
+    getAllChatPartners
 }
