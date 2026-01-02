@@ -5,14 +5,12 @@ import { MessageCircleIcon, LockIcon, MailIcon, UserIcon, LoaderIcon } from "luc
 import { Link } from "react-router";
 
 function SignUpPage() {
-  const [formData, setFormData] = useState({ fullname: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ fullName: "", email: "", password: "" });
   const { signUp, isSigningUp } = useAuthStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     signUp(formData);
-
   };
 
   return (
@@ -32,7 +30,7 @@ function SignUpPage() {
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* fullname */}
+                  {/* fullName */}
                   <div>
                     <label className="auth-input-label">Full Name</label>
                     <div className="relative">
@@ -40,8 +38,8 @@ function SignUpPage() {
 
                       <input
                         type="text"
-                        value={formData.fullname}
-                        onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
+                        value={formData.fullName}
+                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         className="input"
                         placeholder="John Doe"
                       />
