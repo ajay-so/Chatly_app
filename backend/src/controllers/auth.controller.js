@@ -8,8 +8,8 @@ const cloudinary = require('../utils/cloudinary.js');
 
 const signUpUser = async (req, res) => {
     try {
-        const { fullname, email, password } = req.body;
-        if (!fullname || !email || !password) {
+        const { fullName, email, password } = req.body;
+        if (!fullName || !email || !password) {
             return res.status(400).json({ message: "All fields must be required" });
         }
 
@@ -33,7 +33,7 @@ const signUpUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({
-            fullname,
+            fullName,
             email,
             password: hashedPassword
         });
@@ -46,7 +46,7 @@ const signUpUser = async (req, res) => {
 
         // Send welcome email
         try {
-            await sendWelcomeEmail(newUser.fullname, newUser.email, ENV.FRONTEND_URL);
+            await sendWelcomeEmail(newUser.fullName, newUser.email, ENV.FRONTEND_URL);
         } catch (error) {
             console.log("Error sending welcome email:", error);
         }
