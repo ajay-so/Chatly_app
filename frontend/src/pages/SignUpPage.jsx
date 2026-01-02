@@ -15,15 +15,15 @@ function SignUpPage() {
 
   return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
-      <div className="relative w-full max-w-6xl md:h-[650px] h-[700px]">
+      <div className="relative w-full max-w-6xl">
         <BorderAnimatedContainer>
           <div className="w-full flex flex-col md:flex-row">
             {/* form column - left side */}
             <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30">
               <div className="w-full max-w-md">
                 {/* Headibg Text */}
-                <div className="text-center mb-8">
-                  <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-4" />
+                <div className="text-center mb-4">
+                  <MessageCircleIcon className="w-12 h-12 mx-auto text-slate-400 mb-2" />
                   <h2 className="text-2xl font-bold text-slate-200 mb-2">Create Account</h2>
                   <p className="text-slate-400">Sign up for a new account</p>
                 </div>
@@ -97,7 +97,7 @@ function SignUpPage() {
             </div>
 
             {/* Image column - right side */}
-            <div className="hidden md:w-1/2 md:flex items-center justify-center p-6 bg-gradient-to-bl from-slate-800/20 to-transparent">
+            <div className="hidden md:w-1/2 md:flex items-center justify-center p-8 bg-gradient-to-bl from-slate-800/20 to-transparent">
               <div>
                 <img
                   src="/signup.png"
