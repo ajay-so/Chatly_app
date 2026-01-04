@@ -5,7 +5,7 @@ const getALLContacts = async (req, res) => {
     try {
         const loggedUserId = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedUserId } }).select('-password');
-        res.status(200).json(filteredUsers);
+        res.status(200).json({message: "Contacts fetched successfully", data: filteredUsers});
     } catch (error) {
         res.status(500).json({ message: "Server Error", error: error.message });
     }

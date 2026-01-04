@@ -38,17 +38,23 @@ const signUpUser = async (req, res) => {
             password: hashedPassword
         });
 
-        if (newUser) {
-            const savedUser = await newUser.save();
-            createToken(savedUser._id, res);
-            res.status(201).json({ message: "User registered successfully", user: savedUser });
-        }
+        // if (newUser) {
+        //     const savedUser = await newUser.save();
+        //     createToken(savedUser._id, res);
+        //     res.status(201).json({ message: "User registered successfully", user: savedUser });
+        // }
 
         // Send welcome email
         try {
             await sendWelcomeEmail(newUser.fullName, newUser.email, ENV.FRONTEND_URL);
+            if (newUser) {
+                const savedUser = await newUser.save();
+                createToken(savedUser._id, res);
+                res.status(201).json({ message: "User registered successfully", user: savedUser });
+            }
+
         } catch (error) {
-            console.log("Error sending welcome email:", error);
+            res.status(500).json({ message: "Enter a valid email And Active email", error: error.message });
         }
 
     } catch (error) {
@@ -122,7 +128,7 @@ const uploadProfilePic = async (req, res) => {
         ).select('-password');
 
         res.status(200).json({ message: "Profile picture updated successfully", user: updatedUser });
-        
+
     } catch (error) {
         console.log("Error is in uploadPic:", error);
         res.status(500).json({ message: "Server error", error: error.message });

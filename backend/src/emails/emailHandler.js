@@ -10,8 +10,7 @@ const sendWelcomeEmail = async (name, email, clientURL) => {
         html: welcomeEmailTemplate(name, email, clientURL)
     });
     if(error){
-        console.error('Error sending welcome email:', error);
-        throw new Error('Failed to send welcome email');
+        throw new Error('Failed to send welcome email, Enter a valid email address.');
     }
 }
 
