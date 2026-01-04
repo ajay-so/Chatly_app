@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import createAxiosInstance from '../lib/axios.js';
+import { TruckElectric } from 'lucide-react';
 
 
 export const useChatStore = create((set, get) => ({
@@ -24,9 +25,10 @@ export const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const response = await createAxiosInstance.get("/messages/contacts");
-      set({ allContacts: response.data });
+      set({ allContacts: response.data.data });
     } catch (error) {
       console.error(error.response?.data?.message || "Failed to load contacts");
+      set({ allContacts: [] });
     } finally {
       set({ isUsersLoading: false });
     }
@@ -36,9 +38,10 @@ export const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const response = await createAxiosInstance.get("/messages/chats");
-      set({ chats: response.data });
+      set({ chats: response.data.data });
     } catch (error) {
       console.error(error.response?.data?.message || "Failed to load chat partners");
+      set({ chats: [] });
     } finally {
       set({ isUsersLoading: false });
     }
