@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User.js');
 const { createToken } = require('../utils/generateToken.js');
 const { sendWelcomeEmail } = require('../emails/emailHandler.js');
-const ENV = require("../utils/env.js")
+const { ENV } = require("../utils/env.js")
 const cloudinary = require('../utils/cloudinary.js');
 
 
@@ -13,14 +13,11 @@ const signUpUser = async (req, res) => {
             return res.status(400).json({ message: "All fields must be required" });
         }
 
-        // Password validation
         if (password.length < 6) {
             return res.status(400).json({ message: "password must be at least 6 characters" });
         }
 
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         if (!emailRegex.test(email)) {
             return res.status(400).json({ message: "Invalid email format" });
         }
@@ -38,24 +35,20 @@ const signUpUser = async (req, res) => {
             password: hashedPassword
         });
 
-        // if (newUser) {
-        //     const savedUser = await newUser.save();
-        //     createToken(savedUser._id, res);
-        //     res.status(201).json({ message: "User registered successfully", user: savedUser });
-        // }
+        const savedUser = await newUser.save();
+        
+        createToken(savedUser._id, res);
 
-        // Send welcome email
         try {
-            await sendWelcomeEmail(newUser.fullName, newUser.email, ENV.FRONTEND_URL);
-            if (newUser) {
-                const savedUser = await newUser.save();
-                createToken(savedUser._id, res);
-                res.status(201).json({ message: "User registered successfully", user: savedUser });
-            }
-
-        } catch (error) {
-            res.status(500).json({ message: "Enter a valid email And Active email", error: error.message });
+            await sendWelcomeEmail(savedUser.fullName, savedUser.email, ENV.FRONTEND_URL);
+        } catch (emailError) {
+            console.log("Email could not be sent:", emailError.message);
         }
+
+        return res.status(201).json({ 
+            message: "User registered successfully", 
+            user: savedUser 
+        });
 
     } catch (error) {
         console.log("Error is in signUpUser:", error);
