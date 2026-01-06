@@ -1,16 +1,14 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const AuthRoutes = require('./routes/auth.route.js');
 const connectDB = require('./utils/db.js');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('./middlewares/rateLimit.middleware.js');
 const MessageRoutes = require('./routes/message.route.js');
+const { app, server } = require('./utils/socket.js');
 const cors = require('cors');
+const { ENV } = require('../src/utils/env.js');
 
-dotenv.config();
-
-const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = ENV.PORT || 5000;
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -27,7 +25,7 @@ app.use(rateLimit);
 app.use('/api/auth', AuthRoutes);
 app.use('/api/messages', MessageRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     connectDB();
 });
