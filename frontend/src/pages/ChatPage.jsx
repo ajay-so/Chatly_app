@@ -8,20 +8,19 @@ import ChatContainer from "../components/ChatContainer";
 import NoConversationPlaceholder from "../components/NoConversationPlaceholder";
 
 function ChatPage() {
-  const { activeTab, selectedUser, setSelectedUser } = useChatStore();
+  const { activeTab, selectedUser } = useChatStore();
 
   return (
-    <div className="w-full h-screen overflow-hidden">
-      <BorderAnimatedContainer className="flex">
+    // md:p-4 adds spacing on laptop, p-0 ensures it's edge-to-edge on mobile
+    <div className="w-full h-screen sm:h-[690px] overflow-hidden md:p-4 bg-slate-950">
+      <BorderAnimatedContainer className="flex h-full w-full">
 
-        {/* LEFT SIDEBAR */}
+        {/* --- LEFT SIDEBAR --- */}
         <div
           className={`
-            w-full sm:w-80 
-            h-full
-            bg-slate-800/50 backdrop-blur-sm 
-            flex flex-col
-            ${selectedUser ? "hidden sm:flex" : "flex"}
+            h-full flex flex-col transition-all duration-300
+            bg-slate-800/50 backdrop-blur-sm border-r border-slate-700/50
+            ${selectedUser ? "hidden sm:flex sm:w-80" : "w-full sm:w-80 flex"}
           `}
         >
           <ProfileHeader />
@@ -32,28 +31,21 @@ function ChatPage() {
           </div>
         </div>
 
+        {/* --- RIGHT SIDE (CHAT AREA) --- */}
         <div
           className={`
-            flex-1 h-full flex flex-col 
+            flex-1 h-full flex flex-col transition-all duration-300
             bg-slate-900/50 backdrop-blur-sm
-            ${selectedUser ? "flex" : "hidden sm:flex"}
+            ${selectedUser ? "flex w-full" : "hidden sm:flex"}
           `}
         >
-          {/* Mobile back button */}
-          {selectedUser && (
-            <div className="sm:hidden p-3 border-b border-slate-700">
-              <button
-                onClick={() => setSelectedUser(null)}
-                className="text-slate-300 text-sm"
-              >
-                ← Back
-              </button>
+          {selectedUser ? (
+            <ChatContainer />
+          ) : (
+            <div className="flex-1 flex items-center justify-center">
+               <NoConversationPlaceholder />
             </div>
           )}
-
-          <div className="flex-1 overflow-y-auto">
-            {selectedUser ? <ChatContainer /> : <NoConversationPlaceholder />}
-          </div>
         </div>
 
       </BorderAnimatedContainer>

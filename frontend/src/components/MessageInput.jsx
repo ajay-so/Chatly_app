@@ -10,7 +10,6 @@ function MessageInput() {
   const [imagePreview, setImagePreview] = useState(null);
 
   const fileInputRef = useRef(null);
-
   const { sendMessage, isSoundEnabled } = useChatStore();
 
   const handleSendMessage = (e) => {
@@ -23,12 +22,13 @@ function MessageInput() {
       image: imagePreview,
     });
     setText("");
-    setImagePreview("");
+    setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
@@ -45,64 +45,79 @@ function MessageInput() {
   };
 
   return (
-    <div className="p-4 border-t border-slate-700/50">
+    // 1. Padding changed to px-4 py-3 to look better on phones
+    <div className="w-full px-4 py-3 border-t border-slate-800/50 bg-slate-900/50">
+      
+      {/* --- IMAGE PREVIEW --- */}
       {imagePreview && (
-        <div className="max-w-3xl mx-auto mb-3 flex items-center">
-          <div className="relative">
+        <div className="mb-3 flex items-center">
+          <div className="relative group">
             <img
               src={imagePreview}
               alt="Preview"
-              className="w-20 h-20 object-cover rounded-lg border border-slate-700"
+              className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg border border-slate-700 shadow-lg"
             />
             <button
               onClick={removeImage}
-              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-slate-200 hover:bg-slate-700"
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-rose-500 flex items-center justify-center text-white hover:bg-rose-600 transition-colors shadow-md"
               type="button"
             >
-              <XIcon className="w-4 h-4" />
+              <XIcon className="size-3" />
             </button>
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex space-x-4">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value);
-            isSoundEnabled && playRandomKeyStrokeSound();
-          }}
-          className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 px-4"
-          placeholder="Type your message..."
-        />
+      {/* --- FORM --- */}
+      <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+        <div className="flex-1 flex items-center gap-2">
+          {/* IMAGE ATTACH BUTTON */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className={`flex-shrink-0 p-2 rounded-full transition-all ${
+              imagePreview ? "text-cyan-400 bg-cyan-500/10" : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            <ImageIcon className="size-5 sm:size-6" />
+          </button>
 
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-          className="hidden"
-        />
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            className="hidden"
+          />
 
-        <button
-          type="button"
-          onClick={() => fileInputRef.current?.click()}
-          className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4 transition-colors ${
-            imagePreview ? "text-cyan-500" : ""
-          }`}
-        >
-          <ImageIcon className="w-5 h-5" />
-        </button>
+          {/* TEXT INPUT */}
+          <input
+            type="text"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+              isSoundEnabled && playRandomKeyStrokeSound();
+            }}
+            className="w-full bg-slate-800/40 border border-slate-700/50 rounded-2xl py-2 px-4 text-sm sm:text-base text-white focus:outline-none focus:border-cyan-500/50 transition-all placeholder:text-slate-500"
+            placeholder="Message..."
+          />
+        </div>
+
+        {/* SEND BUTTON */}
         <button
           type="submit"
           disabled={!text.trim() && !imagePreview}
-          className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`flex-shrink-0 size-10 flex items-center justify-center rounded-full transition-all shadow-lg ${
+            !text.trim() && !imagePreview
+              ? "bg-slate-800 text-slate-500 cursor-not-allowed"
+              : "bg-cyan-500 text-white hover:bg-cyan-600 active:scale-90"
+          }`}
         >
-          <SendIcon className="w-5 h-5" />
+          <SendIcon className="size-5" />
         </button>
       </form>
     </div>
   );
 }
+
 export default MessageInput;
