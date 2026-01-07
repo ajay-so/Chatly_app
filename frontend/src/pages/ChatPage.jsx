@@ -11,8 +11,7 @@ function ChatPage() {
   const { activeTab, selectedUser } = useChatStore();
 
   return (
-    // md:p-4 adds spacing on laptop, p-0 ensures it's edge-to-edge on mobile
-    <div className="w-full h-screen sm:h-[690px] overflow-hidden md:p-4 bg-slate-950">
+    <div className="w-full h-[95vh] overflow-hidden p-2 bg-slate-950">
       <BorderAnimatedContainer className="flex h-full w-full">
 
         {/* --- LEFT SIDEBAR --- */}

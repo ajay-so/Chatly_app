@@ -19,7 +19,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen p-4 relative overflow-hidden flex flex-col bg-slate-950 justify-center items-center">
       
       {/* BACKGROUND DECORATORS */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />

@@ -15,7 +15,7 @@ function LoginPage() {
     };
   
     return (
-      <div className="w-full flex items-center justify-center p-4 bg-slate-900">
+      <div className="w-full flex items-center justify-center p-2">
         <div className="relative w-full max-w-6xl">
           <BorderAnimatedContainer>
             <div className="w-full flex flex-col md:flex-row">
@@ -93,11 +93,11 @@ function LoginPage() {
                   <div className="mt-6 text-center">
                     <h3 className="text-xl font-medium text-cyan-400">Connect Anytime, Anywhere</h3>
   
-                    {/* <div className="mt-4 flex justify-center gap-4">
+                    <div className="mt-4 flex justify-center gap-4">
                       <span className="auth-badge">Free</span>
                       <span className="auth-badge">Easy Setup</span>
                       <span className="auth-badge">Private</span>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>

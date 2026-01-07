@@ -46,7 +46,7 @@ function ChatContainer() {
         {isMessagesLoading ? (
           <MessagesLoadingSkeleton />
         ) : messages.length > 0 ? (
-          <div className="max-w-3xl mx-auto space-y-6 p-6">
+          <div className="max-w-4xl mx-auto space-y-6 p-6">
             {messages.map((msg) => (
               <div
                 key={msg._id}
