@@ -46,7 +46,7 @@ function MessageInput() {
 
   return (
     // 1. Padding changed to px-4 py-3 to look better on phones
-    <div className="w-full px-4 py-3 border-t border-slate-800/50 bg-slate-900/50">
+    <div className="w-full px-4 py-3 border-t border-slate-800/50">
       
       {/* --- IMAGE PREVIEW --- */}
       {imagePreview && (
@@ -71,17 +71,7 @@ function MessageInput() {
       {/* --- FORM --- */}
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
         <div className="flex-1 flex items-center gap-2">
-          {/* IMAGE ATTACH BUTTON */}
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className={`flex-shrink-0 p-2 rounded-full transition-all ${
-              imagePreview ? "text-cyan-400 bg-cyan-500/10" : "text-slate-400 hover:text-slate-200"
-            }`}
-          >
-            <ImageIcon className="size-5 sm:size-6" />
-          </button>
-
+          
           <input
             type="file"
             accept="image/*"
@@ -102,6 +92,17 @@ function MessageInput() {
             placeholder="Message..."
           />
         </div>
+
+        {/* IMAGE ATTACH BUTTON */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className={`flex-shrink-0 p-2 rounded-full transition-all ${
+              imagePreview ? "text-cyan-400 bg-cyan-500/10" : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            <ImageIcon className="size-5 sm:size-6" />
+          </button>
 
         {/* SEND BUTTON */}
         <button
