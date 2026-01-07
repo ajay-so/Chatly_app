@@ -1,9 +1,8 @@
-import { useState, useRef, use } from "react";
+import { useState, useRef } from "react";
 import { LogOutIcon, VolumeOffIcon, Volume2Icon } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import PageLoader from "./PageLoader";
-import axios from "../lib/axios";
 const mouseClickSound = new Audio("/sounds/mouse-click.mp3");
 
 function ProfileHeader() {

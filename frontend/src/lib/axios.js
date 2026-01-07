@@ -2,9 +2,7 @@ import axios from 'axios';
 
 const createAxiosInstance = () => {
   const instance = axios.create({
-    baseURL: import.meta.env.MODE === 'development'
-      ? 'http://localhost:3000/api'
-      : 'https://chatly-app.onrender.com/api',
+      baseURL: 'https://chatly-app-meg2.onrender.com/api',
       withCredentials: true,
   });
 
