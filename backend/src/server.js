@@ -34,7 +34,7 @@ server.listen(PORT, () => {
     connectDB();
 });
 
-const SELF_URL = "https://your-app-name.onrender.com/health";
+const SELF_URL = "https://chatly-app-meg2.onrender.com/health";
 
 setInterval(async () => {
   try {
@@ -43,4 +43,4 @@ setInterval(async () => {
   } catch (err) {
     console.log("Self ping failed:", err.message);
   }
-}, 5 * 60 * 1000); // every 5 minutes
+}, 10 * 60 * 1000);
