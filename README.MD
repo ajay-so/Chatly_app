@@ -10,11 +10,11 @@ Highlights:
 - 🗂️ Image Uploads (Cloudinary)
 - 🧰 REST API with Node.js & Express
 - 🧱 MongoDB for Data Persistence
-- 🚦 API Rate-Limiting powered by Arcjet
+- 🚦 API Rate-Limiting powered by Express-rate-limiter
 - 🎨 Beautiful UI with React, Tailwind CSS & DaisyUI
 - 🧠 Zustand for State Management
 - 🧑‍💻 Git & GitHub Workflow (branches, PRs, merges)
-- 🚀 Easy Deployment (free-tier friendly with Sevalla)
+- 🚀 Easy Deployment (Frontend with Vercel and Backend with Render)
 
 ---
 
@@ -34,7 +34,7 @@ RESEND_API_KEY=your_resend_api_key
 EMAIL_FROM=your_email_from_address
 EMAIL_FROM_NAME=your_email_from_name
 
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL=https://chatly-coral.vercel.app/
 
 CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
 CLOUDINARY_API_KEY=your_cloudinary_api_key
@@ -58,4 +58,5 @@ npm run dev
 cd frontend
 npm install
 npm run dev
+
 ```
