@@ -18,7 +18,7 @@ Highlights:
 
 ---
 
-## Live Link : https://chatly-coral.vercel.app/
+### 🚀 Live Link : https://chatly-coral.vercel.app/
 
 ---
 
@@ -64,4 +64,5 @@ npm install
 npm run dev
 
 ```
+
 
