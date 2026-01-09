@@ -18,6 +18,10 @@ Highlights:
 
 ---
 
+## Live Link : https://chatly-coral.vercel.app/
+
+---
+
 ## 🧪 .env Setup
 
 ### Backend (`/backend`)
@@ -60,3 +64,4 @@ npm install
 npm run dev
 
 ```
+
