@@ -1,5 +1,11 @@
 <h1 align="center">✨ Full-Stack Chat App with Auth & Emails ✨</h1>
 
+---
+
+### 🚀 Live Link : https://chatly-coral.vercel.app/
+
+---
+
 Highlights:
 
 - 🔐 Custom JWT Authentication (no 3rd-party auth)
@@ -15,10 +21,6 @@ Highlights:
 - 🧠 Zustand for State Management
 - 🧑‍💻 Git & GitHub Workflow (branches, PRs, merges)
 - 🚀 Easy Deployment (Frontend with Vercel and Backend with Render)
-
----
-
-### 🚀 Live Link : https://chatly-coral.vercel.app/
 
 ---
 
@@ -64,5 +66,6 @@ npm install
 npm run dev
 
 ```
+
 
 
