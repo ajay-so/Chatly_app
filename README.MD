@@ -1,7 +1,5 @@
 <h1 align="center">✨ Full-Stack Chat App with Auth & Emails ✨</h1>
 
----
-
 ### 🚀 Live Link : https://chatly-coral.vercel.app/
 
 ---
@@ -66,6 +64,7 @@ npm install
 npm run dev
 
 ```
+
 
 
 
