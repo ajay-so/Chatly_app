@@ -43,4 +43,4 @@ setInterval(async () => {
   } catch (err) {
     console.log("Self ping failed:", err.message);
   }
-}, 10 * 60 * 1000);
+}, 24 * 60 * 60 * 1000);
